@@ -1,9 +1,19 @@
-﻿<!DOCTYPE html>
+﻿<!-- This IS NOT and SHOULD NOT be a Razor Page. It is not easy to be certain about that, however.
+     Ultimately, the deciding factor is that this project was started from an ASP.NET Core MVC template.
+     Just witness how confusing the juggle with terms is though:
+     https://learn.microsoft.com/en-us/dotnet/architecture/porting-existing-aspnet-apps/comparing-razor-pages-aspnet-mvc
+     https://learn.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-7.0 -->
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewData["Title"] - My ASP.NET Application</title>
+    <!--
+    <link rel="stylesheet" href="../wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../wwwroot/css/site.css" />
+        -->
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -32,5 +42,15 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+
+    <!--
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+        -->
+
+    @await RenderSectionAsync("Scripts", required: false)
+    <!-- If a "@@ Scripts { }" section is attached to a child page (mounted to RenderBody),
+         it gets inserted here. If not, nothing happens. -->
 </body>
 </html>
