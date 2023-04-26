@@ -16,10 +16,19 @@ namespace DE_GamesCatalog
     public class Program
     {
         public static MongoClient client;
+        public const string mainDatabaseName = "DE_GamesCatalog";       // Match with the MongoDB database name.
+        public const string mainDatabaseCollectionName = "gameitems";   // Match with the MongoDB collection name for the main database.
+
+        // Purely saving horizontal space with this shortcut. (And possibly database calls.)
+        public static IMongoDatabase mainDatabase;
+        //public static IMongoCollection<GameItemModel> mainDatabaseCollection;
 
         public static void Main(string[] args)
         {
             ConnectToMongoDB();
+
+            mainDatabase = client.GetDatabase(mainDatabaseName);
+
 
             CreateHostBuilder(args).Build().Run();
         }
