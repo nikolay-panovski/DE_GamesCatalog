@@ -19,14 +19,23 @@ namespace DE_GamesCatalog
 
         public static void Main(string[] args)
         {
+            ConnectToMongoDB();
+
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static void ConnectToMongoDB()
+        {
+            // Setup instructions provided by MongoDB:
             string connectionUri = System.Environment.GetEnvironmentVariable("MONGODB_URI");
             var settings = MongoClientSettings.FromConnectionString(connectionUri);
-            // Set the ServerApi field of the settings object to Stable API version 1
+            // "Set the ServerApi field of the settings object to Stable API version 1"
+            // (and weirdly enough, that is the only available version)
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
-            // Create a new client and connect to the server
+            // "Create a new client and connect to the server"
             client = new MongoClient(settings);
 
-            // Send a ping to confirm a successful connection
+            // "Send a ping to confirm a successful connection"
             try
             {
                 var result = client.GetDatabase("admin").RunCommand<BsonDocument>(new BsonDocument("ping", 1));
@@ -36,8 +45,6 @@ namespace DE_GamesCatalog
             {
                 Console.WriteLine(ex);
             }
-
-            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
