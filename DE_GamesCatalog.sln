@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DE_GamesCatalog", "DE_GamesCatalog.csproj", "{B26D0FDC-C0D6-4C15-BFD4-0970F5DCF522}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DE_GamesCatalog", "DE_GamesCatalog.csproj", "{B26D0FDC-C0D6-4C15-BFD4-0970F5DCF522}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DE_GamesCatalog_Tests", "..\DE_GamesCatalog_Tests\DE_GamesCatalog_Tests.csproj", "{8B758D5F-DAF9-4612-82F0-75CBAA82558F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B26D0FDC-C0D6-4C15-BFD4-0970F5DCF522}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B26D0FDC-C0D6-4C15-BFD4-0970F5DCF522}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B26D0FDC-C0D6-4C15-BFD4-0970F5DCF522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B758D5F-DAF9-4612-82F0-75CBAA82558F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B758D5F-DAF9-4612-82F0-75CBAA82558F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B758D5F-DAF9-4612-82F0-75CBAA82558F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B758D5F-DAF9-4612-82F0-75CBAA82558F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
