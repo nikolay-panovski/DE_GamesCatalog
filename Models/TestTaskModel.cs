@@ -42,8 +42,9 @@ namespace DE_GamesCatalog.Models
         public long time_estimated { get; set; } //{ type: Number /* where Number = minutes; formatted separately */, default: 0 },
         public long time_registered { get; set; } //{ type: Number /* see above */, default: 0 }
 
-        //public StateVisibility state_visibility { get; set; } = StateVisibility.Personal;
-        //public StateCompletion state_completion { get; set; } = StateCompletion.Incomplete;
+        // error: cannot resolve string to enum type (logically)
+        public StateVisibility state_visibility { get; set; } = StateVisibility.Personal;
+        public StateCompletion state_completion { get; set; } = StateCompletion.Incomplete;
 
         /**/
         //project: { type: mongoose.Schema.Types.ObjectId, ref: "projects" },   // careful - leave refs for later
