@@ -25,12 +25,16 @@ namespace DE_GamesCatalog.Controllers
         {
             IMongoCollection<TestTaskModel> tasks = Program.client.GetDatabase("project_manage_tasks").GetCollection<TestTaskModel>("tasks");
 
-            //var found = tasks.Find(t => t.name == "Sample").ToJson();     // return type: IFindFluent<TestTaskModel, TestTaskModel>
-                                                                            // leads down the ObjectSerializer rabbit hole
-            var found = tasks.FindSync<TestTaskModel>(t => t.name == "Sample").ToJson();
+            //var found = tasks.Find(t => t.name == "Sample").ToJson();
+            // return type: IFindFluent<TestTaskModel, TestTaskModel>; leads down the ObjectSerializer rabbit hole.
+            // it might also be because I didn't ever apply a selector like FirstOrDefault, Single etc.
+
+            var found = tasks.FindSync<TestTaskModel>(t => t.name == "Sample").FirstOrDefault().ToJson();
 
             return View(found);
         }
+
+        /// -- everything below this is boilerplate, automatically generated and unedited
 
         // GET: TestTaskController/Create
         public ActionResult Create()
