@@ -12,6 +12,7 @@ namespace DE_GamesCatalog.Models
         public ObjectId _id { get; set; }
 
         public string name { get; set; }
+        [Url]
         public string imageURL { get; set; }
         public string genre { get; set; }   // enum possible?
         public string shortDescription { get; set; }
@@ -36,6 +37,7 @@ namespace DE_GamesCatalog.Models
         // Intended to be passed to the final object (on a link or button).
         // In theory we could be less discriminatory and make the field
         // without a site affiliation(just pass any useful redirection URL), array, or at least add another one for YouTube.
+        [Url]
         public string twitchDirectoryURL { get; set; }
     }
 }
