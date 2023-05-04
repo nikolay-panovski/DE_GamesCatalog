@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -31,7 +32,7 @@ namespace DE_GamesCatalog.Controllers
             // Forces the application/the database to implement a way to distinguish between different games with accidentally same names.
             GameItemModel requestedGame = dbCollection.FindSync<GameItemModel>(g => g.name == name).Single();
 
-            return View(requestedGame);
+            return View(requestedGame); // Json() for testing purposes
             // TODO NEXT: Error: "The View 'Details' was not found."
         }
 
@@ -44,8 +45,16 @@ namespace DE_GamesCatalog.Controllers
         // but that does not appear to be true?
         public ActionResult Create([FromBody] GameItemModel newItem)
         {
-            IMongoCollection<GameItemModel> dbCollection = Program.mainDatabase.GetCollection<GameItemModel>("gameitems");
+            // TODO: Separate into method
+            List<ValidationResult> validationResults = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(newItem, new ValidationContext(newItem), validationResults, true);
 
+            if (!isValid)
+            {
+                return BadRequest("Invalid object: " + newItem + "(errors: " + validationResults + ")");    //StatusCode(400);
+            }
+
+            IMongoCollection<GameItemModel> dbCollection = Program.mainDatabase.GetCollection<GameItemModel>("gameitems");
             dbCollection.InsertOne(newItem);
 
             try
