@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-test:
 
     name: Build and test
     runs-on: ubuntu-latest
@@ -34,3 +34,21 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+
+  deploy:
+
+    name: Deploy after passing tests
+    needs: [ build-test ]
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: DE_GamesCatalog
+
+    steps:
+    - name: Deploy to production (Render)
+      uses: johnbeynon/render-deploy-action@v0.0.8  # https://github.com/marketplace/actions/render-deploy-action
+      with:
+        service-id: ${{ secrets.SERVICE_ID }}       # accesses GitHub/<repo>/Settings/Secrets and Variables/Actions/<Repository Secrets>
+        api-key: ${{ secrets.RENDER_API_KEY }}
