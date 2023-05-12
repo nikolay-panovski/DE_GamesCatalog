@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DE_GamesCatalog", "DE_GamesCatalog.csproj", "{B26D0FDC-C0D6-4C15-BFD4-0970F5DCF522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DE_GamesCatalog_Tests", "..\DE_GamesCatalog_Tests\DE_GamesCatalog_Tests.csproj", "{8B758D5F-DAF9-4612-82F0-75CBAA82558F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DE_GamesCatalog_Tests", "..\DE_GamesCatalog_Tests\DE_GamesCatalog_Tests.csproj", "{8B758D5F-DAF9-4612-82F0-75CBAA82558F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CFD1A7D2-0A27-4FE8-899C-3C30E23014C4}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\main.yml = ..\.github\workflows\main.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
