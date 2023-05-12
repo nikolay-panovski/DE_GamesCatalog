@@ -46,6 +46,11 @@ namespace DE_GamesCatalog
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DE_GamesCatalog v1"));
             }
+            else
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DE_GamesCatalog v1"));
+            }
 
             app.UseHttpsRedirection();
 
