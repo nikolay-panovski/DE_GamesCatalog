@@ -1,0 +1,31 @@
+﻿# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:           # Also run on pull requests: validate incoming pull requests against tests, then build
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup .NET 5
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 5.0.x  
+    - name: Display dotnet version  # Test/clarity
+      run: dotnet --version
+    - name: Restore dependencies
+      run: dotnet restore   # Automatic equivalent to: - name: Install dependencies run: dotnet add package <packagename> --version <version>
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
