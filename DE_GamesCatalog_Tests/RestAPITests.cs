@@ -14,6 +14,9 @@ namespace DE_GamesCatalog_Tests
 {
     public class RestAPITests
     {
+        //Uri hostAddress = new Uri("https://localhost:44341");
+        Uri hostAddress = new Uri("https://de-gamescatalog.onrender.com/");
+
         [Fact]
         public async Task ValidCreateRequestReturns201WithValidItem()
         {
@@ -32,9 +35,8 @@ namespace DE_GamesCatalog_Tests
             newItem.twitchDirectoryURL = "https://random.org";
 
 
-            //https://localhost:44341/swagger/index.html
             HttpClient testClient = new HttpClient();
-            testClient.BaseAddress = new Uri("https://localhost:44341");
+            testClient.BaseAddress = hostAddress;
             HttpRequestMessage requestPostWithBody = new HttpRequestMessage(HttpMethod.Post, testClient.BaseAddress + "games/new");
 
             requestPostWithBody.Content = JsonContent.Create(newItem, typeof(GameItemModel), new MediaTypeHeaderValue("application/json"));
@@ -60,9 +62,8 @@ namespace DE_GamesCatalog_Tests
             newItem.shortDescription = "This INCOMPLETE 'game' is created from XUnit integration tests.";
 
 
-            //https://localhost:44341/swagger/index.html
             HttpClient testClient = new HttpClient();
-            testClient.BaseAddress = new Uri("https://localhost:44341");
+            testClient.BaseAddress = hostAddress;
             HttpRequestMessage requestPostWithBody = new HttpRequestMessage(HttpMethod.Post, testClient.BaseAddress + "games/new");
 
             requestPostWithBody.Content = JsonContent.Create(newItem, typeof(GameItemModel), new MediaTypeHeaderValue("application/json"));
@@ -91,9 +92,8 @@ namespace DE_GamesCatalog_Tests
             newItem.twitchDirectoryURL = "";
 
 
-            //https://localhost:44341/swagger/index.html
             HttpClient testClient = new HttpClient();
-            testClient.BaseAddress = new Uri("https://localhost:44341");
+            testClient.BaseAddress = hostAddress;
             HttpRequestMessage requestPostWithBody = new HttpRequestMessage(HttpMethod.Post, testClient.BaseAddress + "games/new");
 
             requestPostWithBody.Content = JsonContent.Create(newItem, typeof(GameItemModel), new MediaTypeHeaderValue("application/json"));
@@ -122,9 +122,8 @@ namespace DE_GamesCatalog_Tests
             newItem.Summary = "What the hell is this weather doing in games";
 
 
-            //https://localhost:44341/swagger/index.html
             HttpClient testClient = new HttpClient();
-            testClient.BaseAddress = new Uri("https://localhost:44341");
+            testClient.BaseAddress = hostAddress;
             HttpRequestMessage requestPostWithBody = new HttpRequestMessage(HttpMethod.Post, testClient.BaseAddress + "games/new");
 
             requestPostWithBody.Content = JsonContent.Create(newItem, typeof(WeatherForecast), new MediaTypeHeaderValue("application/json"));
@@ -142,8 +141,9 @@ namespace DE_GamesCatalog_Tests
         public void SwaggerAutogenPageExists()
         {
             //https://localhost:44341/swagger/index.html - make sure it keeps being built and served
+            //(or respective deployed non-localhost address - in which case also make sure that the app (in Startup) is set to UseSwagger)
             HttpClient testClient = new HttpClient();
-            testClient.BaseAddress = new Uri("https://localhost:44341");
+            testClient.BaseAddress = hostAddress;
             HttpRequestMessage requestGetSwagger = new HttpRequestMessage(HttpMethod.Get, testClient.BaseAddress + "swagger/index.html");
 
             HttpResponseMessage responseMessage = testClient.Send(requestGetSwagger);
