@@ -15,7 +15,7 @@ namespace DE_GamesCatalog_Tests
     public class RestAPITests
     {
         //Uri hostAddress = new Uri("https://localhost:44341");
-        Uri hostAddress = new Uri("https://de-gamescatalog.onrender.com/");
+        Uri hostAddress = new Uri("https://de-gamescatalog.onrender.com");
 
         [Fact]
         public async Task ValidCreateRequestReturns201WithValidItem()
