@@ -44,7 +44,7 @@ namespace DE_GamesCatalog_Tests
 
             HttpResponseMessage responseMessage = testClient.Send(requestPostWithBody);
 
-            //Assert.Null(requestPostWithBody.RequestUri);
+            Assert.Null(requestPostWithBody.RequestUri);
             Assert.Equal(System.Net.HttpStatusCode.Created, responseMessage.StatusCode);
 
             string responseBody = await responseMessage.Content.ReadAsStringAsync();
