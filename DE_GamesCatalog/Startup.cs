@@ -53,6 +53,7 @@ namespace DE_GamesCatalog
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
