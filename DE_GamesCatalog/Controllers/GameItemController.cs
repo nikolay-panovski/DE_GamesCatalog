@@ -59,7 +59,12 @@ namespace DE_GamesCatalog.Controllers
 
             if (!isValid)
             {
-                return BadRequest("Invalid object: " + newItem + "(errors: " + validationResults + ")");    //StatusCode(400);
+                string errors = string.Empty;
+                foreach (ValidationResult result in validationResults)
+                {
+                    errors = string.Concat(errors, result, " ");
+                }
+                return BadRequest("Invalid object: " + newItem + "(errors: " + errors + ")");    //StatusCode(400);
             }
 
             IMongoCollection<GameItemModel> dbCollection = Program.mainDatabase.GetCollection<GameItemModel>("gameitems");
