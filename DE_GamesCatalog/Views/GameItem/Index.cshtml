@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<DE_GamesCatalog.Models.GameItemModel>
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "All Games";
 }
 
-<h1>View</h1>
+<h1>All Games</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a href="/games/new" class="btn btn-primary">Create New Game Item</a>
 </p>
 
 <div class="container px-3">
@@ -47,9 +47,9 @@
                     <a href="@item.twitchDirectoryURL" class="card-link">Link to game directory</a>
                 </div>
                 <div class="card-footer">
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Edit", "Edit", routeValues: new { name = item.name }) |
                     @Html.ActionLink("Details", "Details", routeValues: new { name = item.name }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Delete", "Delete", routeValues: new { id = item._id })
                 </div>
             </div>
         </div>

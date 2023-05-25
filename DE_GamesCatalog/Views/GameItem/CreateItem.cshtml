@@ -1,0 +1,62 @@
+﻿@model DE_GamesCatalog.Models.GameItemModel
+
+@{
+    ViewData["Title"] = "Create item";
+}
+
+<h1>Create item</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <p>@Html.DisplayNameFor(model => model.name)</p>
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <p>@Html.DisplayNameFor(model => model.genre)</p>
+            <div class="form-group">
+                <label asp-for="genre" class="control-label"></label>
+                <input asp-for="genre" class="form-control" />
+                <span asp-validation-for="genre" class="text-danger"></span>
+            </div>
+            <p>@Html.DisplayNameFor(model => model.shortDescription)</p>
+            <div class="form-group">
+                <label asp-for="shortDescription" class="control-label"></label>
+                <input asp-for="shortDescription" class="form-control" />
+                <span asp-validation-for="shortDescription" class="text-danger"></span>
+            </div>
+            <p>@Html.DisplayNameFor(model => model.imageURL)</p>
+            <div class="form-group">
+                <label asp-for="imageURL" class="control-label"></label>
+                <input asp-for="imageURL" class="form-control" />
+                <span asp-validation-for="imageURL" class="text-danger"></span>
+            </div>
+            <p>@Html.DisplayNameFor(model => model.twitchDirectoryURL)</p>
+            <div class="form-group">
+                <label asp-for="twitchDirectoryURL" class="control-label"></label>
+                <input asp-for="twitchDirectoryURL" class="form-control" />
+                <span asp-validation-for="twitchDirectoryURL" class="text-danger"></span>
+            </div>
+            <hr />
+            <div class="bg-danger text-white p-2">
+                <p>Keep in mind that ratings cannot be created manually.</p>
+            </div>
+            <hr />
+            <div class="form-group">
+                <input type="submit" formaction="/games/new" formmethod="post" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="/games">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
