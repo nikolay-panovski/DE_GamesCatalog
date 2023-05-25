@@ -9,76 +9,43 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">   <!-- TODO NEXT: represent each entry in card form instead of a table with all entries. -->
-    <thead>
-        <tr>
-            <th>
-                <!-- Use DisplayNameFor() etc. instead of things like Model.property in order to properly obtain info from the model with metadata. -->
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.imageURL) 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.shortDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.gameplayDensity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RNGDensity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.glitchesAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.valueForMoney)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.twitchDirectoryURL)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.imageURL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.shortDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gameplayDensity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RNGDensity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.glitchesAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.valueForMoney)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.twitchDirectoryURL)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", routeValues: new { name = item.name }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="container px-3">
+    <div class="row row-cols-3 g-2 g-lg-3">
+        @foreach (var item in Model)
+        {
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title">@item.name</h5>
+                    <p class="card-text">@item.genre</p>
+                </div>
+                <img src="@item.imageURL" class="card-img" alt="Game cover image for @item.name">
+                <div class="card-body">
+                    <p class="card-text">@item.shortDescription</p>
+                </div>
+                <div class="card-body">
+                    <!-- keep section for details page? -->
+                    <p class="card-text ">@Html.DisplayNameFor(model => model.gameplayDensity)</p>
+                    <p class="card-text ">@Html.DisplayFor(model => item.gameplayDensity)</p>
+                    <p class="card-text ">@Html.DisplayNameFor(model => model.RNGDensity)</p>
+                    <p class="card-text ">@Html.DisplayFor(model => item.RNGDensity)</p>
+                    <p class="card-text ">@Html.DisplayNameFor(model => model.glitchesAmount)</p>
+                    <p class="card-text ">@Html.DisplayFor(model => item.glitchesAmount)</p>
+                    <p class="card-text ">@Html.DisplayNameFor(model => model.valueForMoney)</p>
+                    <p class="card-text ">@Html.DisplayFor(model => item.valueForMoney)</p>
+                </div>
+                <div class="card-footer">
+                    <a href="@item.twitchDirectoryURL" class="card-link">Link to game directory</a>
+                </div>
+                <div class="card-footer">
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", routeValues: new { name = item.name }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
