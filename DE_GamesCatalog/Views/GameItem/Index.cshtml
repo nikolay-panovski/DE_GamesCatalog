@@ -30,18 +30,18 @@
                     <!-- keep section for details page? -->
                     <p class="card-text ">@Html.DisplayNameFor(model => model.gameplayDensity)</p>
                     <!-- <input id="input-id" type="text" class="rating" data-size="lg"> by default -->
-                    <input id="input-id-gd-@i" type="text" value="@item.gameplayDensity" data-size="lg"
-                           data-displayonly=true data-min="0" data-max="5" data-step="0.1">
+                    <input id="input-id-gd-@i" type="text" class="rating" value="@item.gameplayDensity" data-size="lg"
+                           data-display-only="true" data-min="0" data-max="5" data-step="0.1">
                         <!-- would be good: data-min and data-max extracted with Html helper from model's RangeAttribute -->
                     <p class="card-text ">@Html.DisplayNameFor(model => model.RNGDensity)</p>
-                    <input id="input-id-rng-@i" type="text" value="@item.RNGDensity" data-size="lg"
-                           data-displayonly=true data-min="0" data-max="5" data-step="0.1">
+                    <input id="input-id-rng-@i" type="text" class="rating" value="@item.RNGDensity" data-size="lg"
+                           data-display-only="true" data-min="0" data-max="5" data-step="0.1">
                     <p class="card-text ">@Html.DisplayNameFor(model => model.glitchesAmount)</p>
-                    <input id="input-id-gl-@i" type="text" value="@item.glitchesAmount" data-size="lg"
-                           data-displayonly=true data-min="0" data-max="5" data-step="0.1">
+                    <input id="input-id-gl-@i" type="text" class="rating" value="@item.glitchesAmount" data-size="lg"
+                           data-display-only="true" data-min="0" data-max="5" data-step="0.1">
                     <p class="card-text ">@Html.DisplayNameFor(model => model.valueForMoney)</p>
-                    <input id="input-id-val-@i" type="text" value="@item.valueForMoney" data-size="lg"
-                           data-displayonly=true data-min="0" data-max="5" data-step="0.1">
+                    <input id="input-id-val-@i" type="text" class="rating" value="@item.valueForMoney" data-size="lg"
+                           data-display-only="true" data-min="0" data-max="5" data-step="0.1">
                 </div>
                 <div class="card-footer">
                     <a href="@item.twitchDirectoryURL" class="card-link">Link to game directory</a>
