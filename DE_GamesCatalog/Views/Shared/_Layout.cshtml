@@ -12,6 +12,9 @@
     <title>@ViewData["Title"] - My ASP.NET Application</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="stylesheet" href="~/lib/kartik-v-bootstrap-star-rating-6f8575f/css/star-rating.min.css" />
+    <link rel="stylesheet" href="~/lib/kartik-v-bootstrap-star-rating-6f8575f/themes/krajee-svg/theme.min.css" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -48,5 +51,10 @@
     @await RenderSectionAsync("Scripts", required: false)
     <!-- If a "@@ Scripts { }" section is attached to a child page (mounted to RenderBody),
          it gets inserted here. If not, nothing happens. -->
+
+    @section Scripts {
+        <script src="~/lib/kartik-v-bootstrap-star-rating-6f8575f/js/star-rating.min.js"></script>
+        <script src="~/lib/kartik-v-bootstrap-star-rating-6f8575f/themes/krajee-svg/theme.min.js"></script>
+    }
 </body>
 </html>
