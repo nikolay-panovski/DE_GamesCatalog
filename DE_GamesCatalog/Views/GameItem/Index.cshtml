@@ -1,0 +1,84 @@
+﻿@model IEnumerable<DE_GamesCatalog.Models.GameItemModel>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">   <!-- TODO NEXT: represent each entry in card form instead of a table with all entries. -->
+    <thead>
+        <tr>
+            <th>
+                <!-- Use DisplayNameFor() etc. instead of things like Model.property in order to properly obtain info from the model with metadata. -->
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imageURL) 
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.shortDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gameplayDensity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RNGDensity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.glitchesAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.valueForMoney)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.twitchDirectoryURL)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imageURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.shortDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gameplayDensity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RNGDensity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.glitchesAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.valueForMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.twitchDirectoryURL)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", routeValues: new { name = item.name }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
