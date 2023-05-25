@@ -12,8 +12,10 @@
 
 <div class="container px-3">
     <div class="row row-cols-3 g-2 g-lg-3">
-        @foreach (var item in Model)
+        @for (int i = 0; i < Model.Count(); i++)
         {
+            DE_GamesCatalog.Models.GameItemModel item = Model.ElementAt(i);
+
         <div class="col">
             <div class="card h-100">
                 <div class="card-header">
@@ -27,13 +29,19 @@
                 <div class="card-body">
                     <!-- keep section for details page? -->
                     <p class="card-text ">@Html.DisplayNameFor(model => model.gameplayDensity)</p>
-                    <p class="card-text ">@Html.DisplayFor(model => item.gameplayDensity)</p>
+                    <!-- <input id="input-id" type="text" class="rating" data-size="lg"> by default -->
+                    <input id="input-id-gd-@i" type="text" value="@item.gameplayDensity" data-size="lg"
+                           data-displayonly=true data-min="0" data-max="5" data-step="0.1">
+                        <!-- would be good: data-min and data-max extracted with Html helper from model's RangeAttribute -->
                     <p class="card-text ">@Html.DisplayNameFor(model => model.RNGDensity)</p>
-                    <p class="card-text ">@Html.DisplayFor(model => item.RNGDensity)</p>
+                    <input id="input-id-rng-@i" type="text" value="@item.RNGDensity" data-size="lg"
+                           data-displayonly=true data-min="0" data-max="5" data-step="0.1">
                     <p class="card-text ">@Html.DisplayNameFor(model => model.glitchesAmount)</p>
-                    <p class="card-text ">@Html.DisplayFor(model => item.glitchesAmount)</p>
+                    <input id="input-id-gl-@i" type="text" value="@item.glitchesAmount" data-size="lg"
+                           data-displayonly=true data-min="0" data-max="5" data-step="0.1">
                     <p class="card-text ">@Html.DisplayNameFor(model => model.valueForMoney)</p>
-                    <p class="card-text ">@Html.DisplayFor(model => item.valueForMoney)</p>
+                    <input id="input-id-val-@i" type="text" value="@item.valueForMoney" data-size="lg"
+                           data-displayonly=true data-min="0" data-max="5" data-step="0.1">
                 </div>
                 <div class="card-footer">
                     <a href="@item.twitchDirectoryURL" class="card-link">Link to game directory</a>
@@ -49,3 +57,6 @@
     </div>
 </div>
 
+@section Scripts {
+    
+}
