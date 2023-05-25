@@ -45,6 +45,14 @@ namespace DE_GamesCatalog.Controllers
         }
 
         [Route("games/new")]
+        [HttpGet]               // GET a create page, the actual creation should be handled by that page + the POST route below.
+        public ActionResult Create()
+        {
+            return View("CreateItem");
+        }
+
+        // HTTP 405 Unsupported Media Type: Form input from the pages is bad. (Swagger JSON object within the validation constraints succeeds 201.)
+        [Route("games/new")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
         // https://learn.microsoft.com/en-us/aspnet/web-api/overview/formats-and-model-binding/parameter-binding-in-aspnet-web-api
@@ -86,46 +94,77 @@ namespace DE_GamesCatalog.Controllers
 
         /// -- do not try to InsertMany; design-wise it doesn't make sense, for response purposes (Created()) it's a hassle too
 
-        // GET: GameItemController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]                       // GET an edit page for this item, the actual edit (assumed POST) is handled by the forms generated there.
+        [Route("games/edit/{name}")]
+        public ActionResult Edit(string name)
         {
-            return View();
+            IMongoCollection<GameItemModel> dbCollection = Program.mainDatabase.GetCollection<GameItemModel>("gameitems");
+
+            // It is more sensible to use ID identification instead of name, because the former is guaranteed to be unique.
+            // Here this is assumed for the latter as well, as a design detail.
+            // (This also conveniently sidesteps dealing with ObjectId conversions.)
+            GameItemModel requestedGame = dbCollection.FindSync<GameItemModel>(g => g.name == name).Single();
+
+            return View("EditItem", requestedGame);
         }
 
-        // POST: GameItemController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        // HTTP 405 Method Not Allowed: ASP.NET internals *somewhere* prevent requests other than GET and PUT from passing to server.
+        // https://stackoverflow.com/questions/12276316/mvc-4-iis-7-5-put-returning-405 (and many others)
+        [HttpPut]
+        [Route("games/edit/{name}")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Edit([FromBody] GameItemModel editedItem)
         {
+            List<ValidationResult> validationResults = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(editedItem, new ValidationContext(editedItem), validationResults, true);
+
+            if (!isValid)
+            {
+                string errors = string.Empty;
+                foreach (ValidationResult result in validationResults)
+                {
+                    errors = string.Concat(errors, result, " ");
+                }
+                return BadRequest("Invalid object: " + editedItem + "(errors: " + errors + ")");    //StatusCode(400);
+            }
+
+            IMongoCollection<GameItemModel> dbCollection = Program.mainDatabase.GetCollection<GameItemModel>("gameitems");
             try
             {
-                return RedirectToAction(nameof(Index));
+                dbCollection.UpdateOne(Builders<GameItemModel>.Filter.Eq("_id", editedItem._id),
+                                                   Builders<GameItemModel>.Update.Set(nameof(GameItemModel.name), editedItem.name)
+                                                                                 .Set(nameof(GameItemModel.imageURL), editedItem.imageURL)
+                                                                                 .Set(nameof(GameItemModel.genre), editedItem.genre)
+                                                                                 .Set(nameof(GameItemModel.shortDescription), editedItem.shortDescription)
+                                                                                 .Set(nameof(GameItemModel.twitchDirectoryURL), editedItem.twitchDirectoryURL));
+
+                return RedirectToAction(nameof(Details), new { editedItem.name });
             }
             catch
             {
-                return View();
-            }
+                return StatusCode(500, "Could not edit the object. Let the person working on this figure it out...");
+            } 
         }
 
-        // GET: GameItemController/Delete/5
-        public ActionResult Delete(int id)
+        // HTTP 405 Method Not Allowed: ASP.NET internals *somewhere* prevent requests other than GET and PUT from passing to server.
+        [HttpDelete]
+        [Route("games/delete/{id}")]
+        public ActionResult Delete(string id)
         {
-            return View();
-        }
+            IMongoCollection<GameItemModel> dbCollection = Program.mainDatabase.GetCollection<GameItemModel>("gameitems");
 
-        // POST: GameItemController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
+            // ... I forgot that ObjectId is comparable to string, not int. Anyway, the below does not feel right.
             try
             {
-                return RedirectToAction(nameof(Index));
+                dbCollection.FindOneAndDelete<GameItemModel>(g => g._id.ToString() == id);
             }
             catch
             {
-                return View();
+                // ...And of course, blame the user. (Better is to find the document and then delete it, separating the possible error moments.)
+                return BadRequest("Could not find and delete object with ID: " + id + ". Did you use a valid ID?");
             }
+
+            return RedirectToAction(nameof(AllGamesPage));
         }
     }
 }
