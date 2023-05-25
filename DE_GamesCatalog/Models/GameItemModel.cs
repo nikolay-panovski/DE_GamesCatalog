@@ -12,16 +12,20 @@ namespace DE_GamesCatalog.Models
         public ObjectId _id { get; set; }
 
         [Display(Name = "Name")]
+        [Required]
         public string name { get; set; }
 
         [Url]
-        [Display(Name = "Image URL")]   // TODO edit to "Image" whenever image fetched itself will be shown (here??)
+        [Display(Name = "Image URL")]
+        [Required]
         public string imageURL { get; set; }
 
         [Display(Name = "Genre")]
+        [Required]
         public string genre { get; set; }   // enum possible?
 
         [Display(Name = "Short description")]
+        [Required]
         public string shortDescription { get; set; }
 
         /// -- Ratings: a Rating is an int between 0-5 that results in a customized display (such as stars).
@@ -29,19 +33,19 @@ namespace DE_GamesCatalog.Models
         /// int? = Nullable<int>. Default to null. This should correspond to a "no rating yet" representation.
         [Range(0, 5)]
         [Display(Name = "Gameplay Density")]
-        public int? gameplayDensity { get; set; } = null;
+        public float? gameplayDensity { get; set; } = null;
 
         [Range(0, 5)]
         [Display(Name = "RNG Density")]
-        public int? RNGDensity { get; set; } = null;
+        public float? RNGDensity { get; set; } = null;
 
         [Range(0, 5)]
         [Display(Name = "Amount of glitches")]
-        public int? glitchesAmount { get; set; } = null;
+        public float? glitchesAmount { get; set; } = null;
 
         [Range(0, 5)]
         [Display(Name = "Value for money")]
-        public int? valueForMoney { get; set; } = null;
+        public float? valueForMoney { get; set; } = null;
 
 
         /// <summary>
@@ -53,6 +57,7 @@ namespace DE_GamesCatalog.Models
         // without a site affiliation(just pass any useful redirection URL), array, or at least add another one for YouTube.
         [Url]
         [Display(Name = "Twitch Directory URL")]
+        [Required]
         public string twitchDirectoryURL { get; set; }
     }
 }
