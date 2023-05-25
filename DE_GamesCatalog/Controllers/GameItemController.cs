@@ -6,19 +6,28 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using MongoDB.Bson;
 using DE_GamesCatalog.Models;
 
 namespace DE_GamesCatalog.Controllers
 {
     public class GameItemController : Controller
     {
+        /// -- [Route]: The "default" convention is that the method name will serve as the route name(?).
+        /// In any case, overwrite that by putting this attribute and being explicit about the route name. It helps Swagger autogen too.
         [Route("games")]
         [HttpGet]
         public ActionResult AllGamesPage()
         {
-            // todo: page populated with database entries
+            IMongoCollection<GameItemModel> dbCollection = Program.mainDatabase.GetCollection<GameItemModel>("gameitems");
 
-            return View();
+            // return all documents, AKA make everything pass the "filter":
+            List<GameItemModel> allDBGames = dbCollection.FindSync<GameItemModel>(/*_ => true /*OR*/ new BsonDocument()).ToList();
+
+            /// -- View(): If the "default" convention is NOT followed, AKA the method name here does not match
+            /// a view page name in the corresponding folder (here: GameItem) OR Shared folder, the view page name MUST be passed as a string.
+            /// If a model is required for that view page to render information from, said model MUST be passed as the second argument here (object).
+            return View("Index", allDBGames);
         }
 
         [Route("games/{name}")]  // do not constrain a route param by type unless the constraint itself is set up, sort of like here:
@@ -32,8 +41,7 @@ namespace DE_GamesCatalog.Controllers
             // Forces the application/the database to implement a way to distinguish between different games with accidentally same names.
             GameItemModel requestedGame = dbCollection.FindSync<GameItemModel>(g => g.name == name).Single();
 
-            return View(requestedGame); // Json() for testing purposes
-            // TODO NEXT: Error: "The View 'Details' was not found."
+            return View(requestedGame); // Json() is also possible, for an API that would allow a frontend part to handle the data on its own.
         }
 
         [Route("games/new")]
